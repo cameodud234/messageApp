@@ -31,3 +31,8 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# mac os
+.DS_Store
+/.apt_generated/
+/.apt_generated_tests/

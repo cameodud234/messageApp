@@ -1,5 +1,7 @@
 package com.amigoscode;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import org.springframework.boot.SpringApplication;
@@ -17,9 +19,14 @@ public class Main {
 	
 	@GetMapping("/")
 	public GreetResponse greet() {
-		return new GreetResponse("Hello");
+		return new GreetResponse(
+				"Hello Cameron",
+				new ArrayList<String>(List.of("c++", "python", "javascript")),
+				new Person("Cameron", 30, 'm')
+		);
 	}
 	
-	record GreetResponse(String greet) {}
+	record Person(String name, int age, char sex) {}
+	record GreetResponse(String greet, List<String> favProgLang, Person person) {}
 	
 }

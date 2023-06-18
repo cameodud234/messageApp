@@ -1,4 +1,4 @@
-package com.amigoscode;
+package com.cam.main;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,16 +17,16 @@ public class Main {
 		SpringApplication.run(Main.class, args);
 	}
 	
-	@GetMapping("/")
-	public GreetResponse greet() {
-		return new GreetResponse(
-				"Hello Cameron",
-				new ArrayList<String>(List.of("c++", "python", "javascript")),
-				new Person("Cameron", 30, 'm')
-		);
-	}
+//	@GetMapping("/")
+//	public GreetResponse greet() {
+//		return new GreetResponse(
+//				"Hello Cameron",
+//				new ArrayList<String>(List.of("c++", "python", "javascript")),
+//				new Person("Cameron", 30, 'm')
+//		);
+//	}
 	
-	record Person(String name, int age, char sex) {}
-	record GreetResponse(String greet, List<String> favProgLang, Person person) {}
+//	record Person(String name, int age, char sex) {}
+//	record GreetResponse(String greet, List<String> favProgLang, Person person) {}
 	
 }

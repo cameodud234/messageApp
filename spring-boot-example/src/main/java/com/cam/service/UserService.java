@@ -5,48 +5,22 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.cam.entity.User;
-import com.cam.repository.UserRepository;
+import com.cam.repository.UserRepositoryImpl;
 
 @org.springframework.stereotype.Service
 
-public class UserService implements Service <User> {
+public interface UserService {
 	
-	@Autowired
-	private UserRepository userRepository;
+	public User find(User arg);
 
-	@Override
-	public List<User> find(User arg) {
-		// TODO Auto-generated method stub
-		return userRepository.find(arg);
-	}
+	public List<User> findAll();
 
-	@Override
-	public List<User> findAll(User arg) {
-		// TODO Auto-generated method stub
-		return userRepository.findAll(arg);
-	}
+	public void add(User arg);
 
-	@Override
-	public void add(User arg) {
-		
-	}
+	public void add(List<User> args);
 
-	@Override
-	public void add(List<User> args) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void update(User arg);
 
-	@Override
-	public void update(User arg) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void delete(int id) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void delete(User arg);
 	
 }

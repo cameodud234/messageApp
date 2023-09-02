@@ -2,18 +2,20 @@ package com.cam.repository;
 
 import java.util.List;
 
-public interface UserRepository <User> {
+import com.cam.entity.User;
+
+public interface UserRepository {
 	
-	public List<User> find(User arg);
+	public User find(User arg);
 	
 	public List<User> findAll();
 	
 	public void add(User arg);
 	
-	public void add(List<User> args);
+	public void addAll(List<User> args);
 	
 	public void update(User arg);
 	
-	public void delete(int id);
+	public void delete(User arg);
 
 }

@@ -17,7 +17,7 @@ public interface UserService {
 
 	public void add(User arg);
 
-	public void add(List<User> args);
+	public void addAll(List<User> args);
 
 	public void update(User arg);
 

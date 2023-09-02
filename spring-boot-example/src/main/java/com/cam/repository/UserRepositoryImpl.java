@@ -5,45 +5,42 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import com.cam.dao.UserDaoImpl;
 import com.cam.entity.User;
 
-public class UserRepositoryImpl implements UserRepository<User> {
+public class UserRepositoryImpl implements UserRepository {
 	
 	@Autowired
-	private JdbcTemplate jdbcTemplate;
-
+	private UserDaoImpl userDaoImpl;
+	
 	@Override
-	public List<User> find(User arg) {
-		// TODO Auto-generated method stub
-		return null;
+	public User find(User arg) {
+		return userDaoImpl.find(arg);
 	}
 
 	@Override
 	public List<User> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return userDaoImpl.findAll();
 	}
 
 	@Override
 	public void add(User arg) {
-		// TODO Auto-generated method stub
+		userDaoImpl.add(arg);
 	}
 
 	@Override
-	public void add(List<User> args) {
-		// TODO Auto-generated method stub
+	public void addAll(List<User> args) {
+		userDaoImpl.addAll(args);
 	}
 
 	@Override
 	public void update(User arg) {
-		// TODO Auto-generated method stub
+		userDaoImpl.update(arg);
 	}
 
 	@Override
-	public void delete(int id) {
-		// TODO Auto-generated method stub
+	public void delete(User arg) {
+		userDaoImpl.delete(arg);
 	}
-
-	
 	
 }

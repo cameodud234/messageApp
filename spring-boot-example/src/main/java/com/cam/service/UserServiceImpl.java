@@ -1,6 +1,7 @@
 package com.cam.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -13,7 +14,7 @@ public class UserServiceImpl implements UserService {
 	private UserRepositoryImpl userRepositoryImpl;
 
 	@Override
-	public User find(User arg) {
+	public Optional<User> find(User arg) {
 		return userRepositoryImpl.find(arg);
 	}
 

@@ -1,12 +1,13 @@
 package com.cam.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.cam.entity.User;
 
 public interface UserRepository {
 	
-	public User find(User arg);
+	public Optional<User> find(User arg);
 	
 	public List<User> findAll();
 	

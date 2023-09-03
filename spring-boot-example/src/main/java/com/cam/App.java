@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.openjfx.camball.BallSimulation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -38,10 +37,8 @@ public class App implements CommandLineRunner {
  
     @Override
     public void run(String... args) throws Exception {
-        String sql = "SELECT * FROM users WHERE users.user_name = ?";
-        String userQuery = "camRogers234";
-        
-        List<User> userList = jdbcTemplate.query(sql, (rs, rowNum) -> {
+    	String sql = "SELECT * FROM users LIMIT 100";
+		List<User> userList = jdbcTemplate.query(sql, (rs, rowNum) -> {
         	String firstName = rs.getString("first_name");
         	String lastName = rs.getString("last_name");
         	String userName = rs.getString("user_name");
@@ -50,9 +47,9 @@ public class App implements CommandLineRunner {
         	Date dateOfBirth = rs.getDate("date_of_birth");
         	String description = rs.getString("description");
         	return new User(firstName, lastName, userName, email, password, dateOfBirth, description);
-        }, userQuery);
-        
-        log.info(userList);
+        });
+		
+		log.info(userList);
     }
  
 }

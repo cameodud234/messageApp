@@ -1,9 +1,9 @@
 package com.cam.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.cam.dao.UserDaoImpl;
 import com.cam.entity.User;
@@ -14,7 +14,7 @@ public class UserRepositoryImpl implements UserRepository {
 	private UserDaoImpl userDaoImpl;
 	
 	@Override
-	public User find(User arg) {
+	public Optional<User> find(User arg) {
 		return userDaoImpl.find(arg);
 	}
 

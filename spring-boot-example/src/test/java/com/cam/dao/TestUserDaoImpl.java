@@ -16,7 +16,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
-import com.cam.dao.UserDaoImpl;
 import com.cam.entity.User;
 
 @ExtendWith(MockitoExtension.class)
@@ -37,11 +36,11 @@ public class TestUserDaoImpl {
         String username = "cameodud234";
 
         // Create a User object for testing
-        User user = new User("John", "Doe", username, "john@example.com", "password", null, null);
+        User user = new User("Cameron", "Dudley", username, "john@example.com", "password", null, null);
 
-        // Mock the queryForObject method to return the user when called with the specified SQL and argument
-        when(jdbcTemplate.queryForObject(eq(sql), any(RowMapper.class), eq(username)))
-            .thenReturn(user);
+//        // Mock the queryForObject method to return the user when called with the specified SQL and argument
+//        when(jdbcTemplate.queryForObject(eq(sql), any(RowMapper.class), eq(username)))
+//            .thenReturn(user);
 
         // Call the find method and verify the result
         Optional<User> result = userDaoImpl.find(new User("", "", username, "", "", null, ""));

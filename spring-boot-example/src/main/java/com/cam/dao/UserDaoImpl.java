@@ -19,37 +19,47 @@ public class UserDaoImpl implements UserDao {
 	
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
-	
-	private List<User> get(final String sql, final String searchFor) {
-		
-		List<User> userList = jdbcTemplate.query(sql, (rs, rowNum) -> {
-        	String firstName = rs.getString("first_name");
-        	String lastName = rs.getString("last_name");
-        	String userName = rs.getString("user_name");
-        	String email = rs.getString("email");
-        	String password = rs.getString("password");
-        	Date dateOfBirth = rs.getDate("date_of_birth");
-        	String description = rs.getString("description");
-        	return new User(firstName, lastName, userName, email, password, dateOfBirth, description);
-        }, searchFor);
-		return userList;
-	}
 
 	@Override
 	public Optional<User> find(User arg) {
-		String sql = "SELECT * FROM users WHERE users.user_name = ?";
-        String username = "cameodud234";
-        
-        List<User> user = get(sql, username);
-        
-        return Optional.ofNullable(user.get(0));
+		
+		try {
+			String sql = "SELECT * FROM users WHERE users.user_name = ?";
+	        String searchFor = arg.getUserName();
+	        
+	        log.info("searchFor: " + searchFor);
+	        
+	        List<User> users = jdbcTemplate.query(sql, (rs, rowNum) -> {
+	        	String firstName = rs.getString("first_name");
+	        	String lastName = rs.getString("last_name");
+	        	String userName = rs.getString("user_name");
+	        	String email = rs.getString("email");
+	        	String password = rs.getString("password");
+	        	Date dateOfBirth = rs.getDate("date_of_birth");
+	        	String description = rs.getString("description");
+	        	return new User(firstName, lastName, userName, email, password, dateOfBirth, description);
+	        }, searchFor);
+	        
+	        log.info("users: " + users);
+	        
+	        return Optional.ofNullable(users.get(0));
+			
+		} catch (DataAccessException e) {
+			log.error(e.getMessage(), e.getCause(), e.getStackTrace());
+		} catch (IndexOutOfBoundsException e) {
+			log.error(e.getMessage(), e.getCause(), e.getStackTrace());
+		} catch (Exception e) {
+			log.error(e.getMessage(), e.getCause(), e.getStackTrace());
+		}
+		return null;
+
 	}
 
 	@Override
 	public List<User> findAll() {
-		String sql = "SELECT * FROM users LIMIT 100";
-		List<User> users = get(sql, "");
-		return users;
+//		String sql = "SELECT * FROM users LIMIT 100";
+//		List<User> users = get(sql, "");
+		return null;
 	}
 
 	@Override

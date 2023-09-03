@@ -49,7 +49,9 @@ public class App implements CommandLineRunner {
         	return new User(firstName, lastName, userName, email, password, dateOfBirth, description);
         });
 		
-		log.info(userList);
+		for(User user: userList) {
+			log.info(user);
+		}
     }
  
 }

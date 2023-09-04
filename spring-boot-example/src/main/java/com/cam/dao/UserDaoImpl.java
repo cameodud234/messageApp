@@ -55,9 +55,19 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public List<User> getAllUsers() {
-//		String sql = "SELECT * FROM users LIMIT 100";
-//		List<User> users = get(sql, "");
-		return null;
+		String sql = "SELECT * FROM users LIMIT 100";
+		List<User> users = jdbcTemplate.query(sql, (rs, rowNum) -> {
+			String firstName = rs.getString("first_name");
+        	String lastName = rs.getString("last_name");
+        	String userName = rs.getString("user_name");
+        	String email = rs.getString("email");
+        	String password = rs.getString("password");
+        	Date dateOfBirth = rs.getDate("date_of_birth");
+        	String description = rs.getString("description");
+        	return new User(firstName, lastName, userName, email, password, dateOfBirth, description);
+		});
+		log.info(users.size());
+		return users;
 	}
 
 	@Override

@@ -20,12 +20,13 @@ public class UserController {
 	
 	@RequestMapping("/users")
 	public List<User> getAllUsers() {
-		return userServiceImpl.getAllUsers();
+		return userServiceImpl.findAll();
 	}
 	
 	@RequestMapping("/users/{id}")
 	public User getUser(@PathVariable String id) {
-		return userServiceImpl.getUser(id);
+		return userServiceImpl.find(id);
 	}
+	
 	
 }

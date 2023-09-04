@@ -3,16 +3,17 @@ package com.cam.dao;
 import java.sql.Date;
 import java.sql.Types;
 import java.util.List;
-import java.util.Optional;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Service;
 
 import com.cam.entity.User;
 
+@Service
 public class UserDaoImpl implements UserDao {
 	
 	private final Logger log = LogManager.getLogger(UserDaoImpl.class);
@@ -21,13 +22,11 @@ public class UserDaoImpl implements UserDao {
 	private JdbcTemplate jdbcTemplate;
 
 	@Override
-	public Optional<User> find(User arg) {
+	public User getUser(String id) {
 		
 		try {
-			String sql = "SELECT * FROM users WHERE users.user_name = ?";
-	        String searchFor = arg.getUserName();
-	        
-	        log.info("searchFor: " + searchFor);
+			String sql = "SELECT * FROM users WHERE users.user_id = ?";
+	        int searchFor = Integer.parseInt(id);
 	        
 	        List<User> users = jdbcTemplate.query(sql, (rs, rowNum) -> {
 	        	String firstName = rs.getString("first_name");
@@ -38,11 +37,10 @@ public class UserDaoImpl implements UserDao {
 	        	Date dateOfBirth = rs.getDate("date_of_birth");
 	        	String description = rs.getString("description");
 	        	return new User(firstName, lastName, userName, email, password, dateOfBirth, description);
-	        }, searchFor);
+	        }, searchFor); 
 	        
-	        log.info("users: " + users);
 	        
-	        return Optional.ofNullable(users.get(0));
+	        return users.size() == 1 ? users.get(0) : null;
 			
 		} catch (DataAccessException e) {
 			log.error(e.getMessage(), e.getCause(), e.getStackTrace());
@@ -56,14 +54,14 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public List<User> findAll() {
+	public List<User> getAllUsers() {
 //		String sql = "SELECT * FROM users LIMIT 100";
 //		List<User> users = get(sql, "");
 		return null;
 	}
 
 	@Override
-	public void add(User arg) {
+	public void addUser(User arg) {
 		try {
 			
 		} catch (DataAccessException e) {
@@ -76,22 +74,21 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public void addAll(List<User> args) {
+	public void addAllUsers(List<User> args) {
 		
 	}
 
 	@Override
-	public void update(User arg) {
+	public void updateUser(User arg) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void delete(User arg) {
+	public void deleteUser(User arg) {
 		// TODO Auto-generated method stub
 		
 	}
-	
 	
 	
 }

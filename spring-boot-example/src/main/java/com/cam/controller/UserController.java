@@ -1,6 +1,7 @@
 package com.cam.controller;
 
-import java.util.Optional;
+
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,16 +11,21 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cam.entity.User;
 import com.cam.service.UserServiceImpl;
 
+
 @RestController
 public class UserController {
 
 	@Autowired
-	UserServiceImpl userServiceImpl;
+	private UserServiceImpl userServiceImpl;
 	
-	@RequestMapping("/users/{username}")
-	public Optional<User> getUser(@PathVariable String username) {
-		User user = new User("Cameron", "Dudley", username, "camerondudley2@gmail.com", null, null, null);
-		return userServiceImpl.find(user);
+	@RequestMapping("/users")
+	public List<User> getAllUsers() {
+		return userServiceImpl.getAllUsers();
+	}
+	
+	@RequestMapping("/users/{id}")
+	public User getUser(@PathVariable String id) {
+		return userServiceImpl.getUser(id);
 	}
 	
 }

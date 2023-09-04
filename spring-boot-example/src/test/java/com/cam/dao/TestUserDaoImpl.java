@@ -43,8 +43,8 @@ public class TestUserDaoImpl {
 //            .thenReturn(user);
 
         // Call the find method and verify the result
-        Optional<User> result = userDaoImpl.find(new User("", "", username, "", "", null, ""));
-        log.info(result.stream().toList());
+//        Optional<User> result = userDaoImpl.find(new User("", "", username, "", "", null, ""));
+//        log.info(result.stream().toList());
 
         // Perform assertions to check if the expected user was found
 //        assertEquals(user, result.orElse(null));

@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void addAll(List<User> args) {
-		// TODO Auto-generated method stub
+		userRepositoryImpl.addAll(args);
 	}
 
 	@Override
@@ -41,43 +41,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void delete(String id) {
-		// TODO Auto-generated method 
-		
+		userRepositoryImpl.delete(id);
 	}
-
-
-	
-//	@Autowired
-//	private UserRepositoryImpl userRepositoryImpl;
-
-//	@Override
-//	public Optional<String> find(String id) {
-//		return userRepositoryImpl.find(id);
-//	}
-//
-//	@Override
-//	public List<User> findAll() {
-//		return userRepositoryImpl.findAll();
-//	}
-//
-//	@Override
-//	public void add(User arg) {
-//		userRepositoryImpl.add(arg);
-//	}
-//
-//	@Override
-//	public void addAll(List<User> args) {
-//		userRepositoryImpl.addAll(args);
-//	}
-//
-//	@Override
-//	public void update(User arg) {
-//		userRepositoryImpl.update(arg);
-//	}
-//
-//	@Override
-//	public void delete(User arg) {
-//		userRepositoryImpl.delete(arg);
-//	}
 
 }

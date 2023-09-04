@@ -70,12 +70,15 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public void add(User arg) {
 		try {
-			String sql = "INSERT INTO Users (first_name, last_name, user_name, email, password, date_of_birth, description)\n";
-			Object[] args = {arg.getFirstName(), arg.getLastName(), arg.getUserName(), arg.getEmail(), arg.getPassword(), arg.getDate()};
-			int[] argTypes = {java.sql.Types.VARCHAR, java.sql.Types.VARCHAR, java.sql.Types.VARCHAR, java.sql.Types.VARCHAR, java.sql.Types.VARCHAR, java.sql.Types.DATE, Types.CLOB};
-			jdbcTemplate.update(sql, args, argTypes);
+//			this.jdbcTemplate.update(
+//					"insert into t_actor (first_name, last_name) values (?, ?)",
+//					"Leonor", "Watling");
+//			String sql = "INSERT INTO Users (first_name, last_name, user_name, email, password, date_of_birth, description)\n";
+//			Object[] args = {arg.getFirstName(), arg.getLastName(), arg.getUserName(), arg.getEmail(), arg.getPassword(), arg.getDate()};
+//			int[] argTypes = {java.sql.Types.VARCHAR, java.sql.Types.VARCHAR, java.sql.Types.VARCHAR, java.sql.Types.VARCHAR, java.sql.Types.VARCHAR, java.sql.Types.DATE, Types.CLOB};
+//			jdbcTemplate.update(sql, args, argTypes);
 			
-		} catch (DataAccessException e) {
+		} catch (DataAccessException e) { 
 			log.error(e.getMessage(), e.getCause(), e.getStackTrace());
 		}
 	}
@@ -87,14 +90,27 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public void update(User arg) {
-		// TODO Auto-generated method stub
-		
+		try {
+//			String sql = "Update users set (first_name, last_name, user_name, email, password, date_of_birth, description)\n";
+//			Object[] args = {arg.getFirstName(), arg.getLastName(), arg.getUserName(), arg.getEmail(), arg.getPassword(), arg.getDate()};
+//			int[] argTypes = {java.sql.Types.VARCHAR, java.sql.Types.VARCHAR, java.sql.Types.VARCHAR, java.sql.Types.VARCHAR, java.sql.Types.VARCHAR, java.sql.Types.DATE, Types.CLOB};
+//			jdbcTemplate.update(sql, args, argTypes);
+		} catch (DataAccessException e) {
+			log.error(e.getMessage(), e.getCause(), e.getStackTrace());
+		}
 	}
 
 	@Override
 	public void delete(String id) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public int getCountOfEmployees() {
+		String sql = "SELECT COUNT(*) FROM users";
+		int count = jdbcTemplate.queryForObject(sql, Integer.class);
+		log.info("user count: " + count);
+		return count;
 	}
 	
 	

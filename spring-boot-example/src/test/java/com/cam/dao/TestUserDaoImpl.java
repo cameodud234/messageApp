@@ -32,21 +32,20 @@ public class TestUserDaoImpl {
     @Test
     public void testFind() {
         // Mock the behavior of the JdbcTemplate queryForObject method
-        String sql = "SELECT * FROM users WHERE users.user_name = ?";
-        String username = "cameodud234";
+        String sql = "SELECT * FROM users WHERE users.user_id = ?";
+        int id = 1;
 
         // Create a User object for testing
-        User user = new User("Cameron", "Dudley", username, "john@example.com", "password", null, null);
+        User user = new User("Cameron", "Dudley", "cameodud234", "john@example.com", "password", null, null);
 
-//        // Mock the queryForObject method to return the user when called with the specified SQL and argument
-//        when(jdbcTemplate.queryForObject(eq(sql), any(RowMapper.class), eq(username)))
-//            .thenReturn(user);
+        // Mock the queryForObject method to return the user when called with the specified SQL and argument
+        when(jdbcTemplate.queryForObject(eq(sql), any(RowMapper.class), eq(id)))
+            .thenReturn(user);
 
         // Call the find method and verify the result
-//        Optional<User> result = userDaoImpl.find(new User("", "", username, "", "", null, ""));
-//        log.info(result.stream().toList());
+        User result = userDaoImpl.getUser("1");
 
         // Perform assertions to check if the expected user was found
-//        assertEquals(user, result.orElse(null));
+        assertEquals(user, result);
     }
 }

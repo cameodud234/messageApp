@@ -73,14 +73,14 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public void addUser(User arg) {
 		try {
+			String sql = "INSERT INTO Users (first_name, last_name, user_name, email, password, date_of_birth, description)\n";
+			Object[] args = {arg.getFirstName(), arg.getLastName(), arg.getUserName(), arg.getEmail(), arg.getPassword(), arg.getDate()};
+			int[] argTypes = {java.sql.Types.VARCHAR, java.sql.Types.VARCHAR, java.sql.Types.VARCHAR, java.sql.Types.VARCHAR, java.sql.Types.VARCHAR, java.sql.Types.DATE, Types.CLOB};
+			jdbcTemplate.update(sql, args, argTypes);
 			
 		} catch (DataAccessException e) {
 			log.error(e.getMessage(), e.getCause(), e.getStackTrace());
 		}
-		String sql = "INSERT INTO Users (first_name, last_name, user_name, email, password, date_of_birth, description)\n";
-		Object[] args = {arg.getFirstName(), arg.getLastName(), arg.getUserName(), arg.getEmail(), arg.getPassword(), arg.getDate()};
-		int[] argTypes = {java.sql.Types.VARCHAR, java.sql.Types.VARCHAR, java.sql.Types.VARCHAR, java.sql.Types.VARCHAR, java.sql.Types.VARCHAR, java.sql.Types.DATE, Types.CLOB};
-		jdbcTemplate.update(sql, args, argTypes);
 	}
 
 	@Override

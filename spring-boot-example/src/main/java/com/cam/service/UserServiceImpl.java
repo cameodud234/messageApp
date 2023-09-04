@@ -26,7 +26,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void addUser(User arg) {
-		// TODO Auto-generated method stub
+		userRepositoryImpl.updateUser(arg);
 		
 	}
 

@@ -27,7 +27,7 @@ public class TestUserDaoImpl {
     private JdbcTemplate jdbcTemplate;
 
     @InjectMocks
-    private UserDaoImpl userDaoImpl;
+    private UserDAOImpl userDaoImpl;
 
     @Test
     public void testFind() {
@@ -43,7 +43,7 @@ public class TestUserDaoImpl {
             .thenReturn(user);
 
         // Call the find method and verify the result
-        User result = userDaoImpl.getUser("1");
+        User result = userDaoImpl.find("1");
 
         // Perform assertions to check if the expected user was found
         assertEquals(user, result);

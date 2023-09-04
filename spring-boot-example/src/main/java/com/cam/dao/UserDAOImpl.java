@@ -1,6 +1,7 @@
 package com.cam.dao;
 
 import java.sql.Date;
+import java.sql.SQLException;
 import java.sql.Types;
 import java.util.List;
 
@@ -14,15 +15,15 @@ import org.springframework.stereotype.Service;
 import com.cam.entity.User;
 
 @Service
-public class UserDaoImpl implements UserDao {
+public class UserDAOImpl implements UserDAO {
 	
-	private final Logger log = LogManager.getLogger(UserDaoImpl.class);
+	private final Logger log = LogManager.getLogger(UserDAOImpl.class);
 	
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
 	@Override
-	public User getUser(String id) {
+	public User find(String id) {
 		
 		try {
 			String sql = "SELECT * FROM users WHERE users.user_id = ?";
@@ -44,17 +45,13 @@ public class UserDaoImpl implements UserDao {
 			
 		} catch (DataAccessException e) {
 			log.error(e.getMessage(), e.getCause(), e.getStackTrace());
-		} catch (IndexOutOfBoundsException e) {
-			log.error(e.getMessage(), e.getCause(), e.getStackTrace());
-		} catch (Exception e) {
-			log.error(e.getMessage(), e.getCause(), e.getStackTrace());
 		}
 		return null;
 
 	}
 
 	@Override
-	public List<User> getAllUsers() {
+	public List<User> findAll() {
 		String sql = "SELECT * FROM users LIMIT 100";
 		List<User> users = jdbcTemplate.query(sql, (rs, rowNum) -> {
 			String firstName = rs.getString("first_name");
@@ -71,7 +68,7 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public void addUser(User arg) {
+	public void add(User arg) {
 		try {
 			String sql = "INSERT INTO Users (first_name, last_name, user_name, email, password, date_of_birth, description)\n";
 			Object[] args = {arg.getFirstName(), arg.getLastName(), arg.getUserName(), arg.getEmail(), arg.getPassword(), arg.getDate()};
@@ -84,18 +81,18 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public void addAllUsers(List<User> args) {
+	public void addAll(List<User> args) {
 		
 	}
 
 	@Override
-	public void updateUser(User arg) {
+	public void update(User arg) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void deleteUser(User arg) {
+	public void delete(String id) {
 		// TODO Auto-generated method stub
 		
 	}

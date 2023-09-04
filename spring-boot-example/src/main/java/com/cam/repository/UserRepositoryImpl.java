@@ -5,43 +5,43 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cam.dao.UserDaoImpl;
+import com.cam.dao.UserDAOImpl;
 import com.cam.entity.User;
 
 @Service
 public class UserRepositoryImpl implements UserRepository {
 	
 	@Autowired
-	private UserDaoImpl userDaoImpl;
+	private UserDAOImpl userDaoImpl;
 	
 	@Override
-	public User getUser(String id) {
-		return userDaoImpl.getUser(id);
+	public User find(String id) {
+		return userDaoImpl.find(id);
 	}
 
 	@Override
-	public List<User> getAllUsers() {
-		return userDaoImpl.getAllUsers();
+	public List<User> findAll() {
+		return userDaoImpl.findAll();
 	}
 
 	@Override
-	public void addUser(User arg) {
-		userDaoImpl.addUser(arg);
+	public void add(User arg) {
+		userDaoImpl.add(arg);
 	}
 
 	@Override
-	public void addAllUsers(List<User> args) {
-		userDaoImpl.addAllUsers(args);
+	public void addAll(List<User> args) {
+		userDaoImpl.addAll(args);
 	}
 
 	@Override
-	public void updateUser(User arg) {
-		userDaoImpl.updateUser(arg);
+	public void update(User arg) {
+		userDaoImpl.update(arg);
 	}
 
 	@Override
-	public void deleteUser(User arg) {
-		userDaoImpl.deleteUser(arg);
+	public void delete(String id) {
+		userDaoImpl.delete(id);
 	}
 	
 }

@@ -15,36 +15,33 @@ public class UserServiceImpl implements UserService {
 	private UserRepositoryImpl userRepositoryImpl;
 
 	@Override
-	public User getUser(String id) {
-		return userRepositoryImpl.getUser(id);
+	public User find(String id) {
+		return userRepositoryImpl.find(id);
 	}
 
 	@Override
-	public List<User> getAllUsers() {
-		return userRepositoryImpl.getAllUsers();
+	public List<User> findAll() {
+		return userRepositoryImpl.findAll();
 	}
 
 	@Override
-	public void addUser(User arg) {
-		userRepositoryImpl.updateUser(arg);
-		
+	public void add(User arg) {
+		userRepositoryImpl.update(arg);
 	}
 
 	@Override
-	public void addAllUsers(List<User> args) {
+	public void addAll(List<User> args) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
-	public void updateUser(User arg) {
-		// TODO Auto-generated method stub
-		
+	public void update(User arg) {
+		userRepositoryImpl.update(arg);
 	}
 
 	@Override
-	public void deleteUser(User arg) {
-		// TODO Auto-generated method stub
+	public void delete(String id) {
+		// TODO Auto-generated method 
 		
 	}
 

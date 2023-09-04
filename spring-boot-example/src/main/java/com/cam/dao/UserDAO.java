@@ -1,10 +1,10 @@
-package com.cam.repository;
+package com.cam.dao;
 
 import java.util.List;
 
 import com.cam.entity.User;
 
-public interface UserRepository {
+public interface UserDAO {
 	
 	public User find(String id);
 	
@@ -17,5 +17,5 @@ public interface UserRepository {
 	public void update(User arg);
 	
 	public void delete(String id);
-
+	
 }

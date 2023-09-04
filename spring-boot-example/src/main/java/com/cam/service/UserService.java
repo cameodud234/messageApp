@@ -7,16 +7,16 @@ import com.cam.entity.User;
 
 public interface UserService {
 	
-	public User getUser(String id);
-
-	public List<User> getAllUsers();
-
-	public void addUser(User arg);
-
-	public void addAllUsers(List<User> args);
-
-	public void updateUser(User arg);
-
-	public void deleteUser(User arg);
+	public User find(String id);
+	
+	public List<User> findAll();
+	
+	public void add(User arg);
+	
+	public void addAll(List<User> args);
+	
+	public void update(User arg);
+	
+	public void delete(String id);
 	
 }

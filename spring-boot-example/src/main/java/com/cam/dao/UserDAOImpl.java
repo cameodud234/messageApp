@@ -30,6 +30,7 @@ public class UserDAOImpl implements UserDAO {
 	        int searchFor = Integer.parseInt(id);
 	        
 	        List<User> users = jdbcTemplate.query(sql, (rs, rowNum) -> {
+	        	String user_id = rs.getString("user_id");
 	        	String firstName = rs.getString("first_name");
 	        	String lastName = rs.getString("last_name");
 	        	String userName = rs.getString("user_name");
@@ -37,7 +38,8 @@ public class UserDAOImpl implements UserDAO {
 	        	String password = rs.getString("password");
 	        	Date dateOfBirth = rs.getDate("date_of_birth");
 	        	String description = rs.getString("description");
-	        	return new User(firstName, lastName, userName, email, password, dateOfBirth, description);
+	        	boolean isActive = rs.getBoolean("active");
+	        	return new User(user_id, firstName, lastName, userName, email, password, dateOfBirth, description, isActive);
 	        }, searchFor); 
 	        
 	        
@@ -54,14 +56,16 @@ public class UserDAOImpl implements UserDAO {
 	public List<User> findAll() {
 		String sql = "SELECT * FROM users LIMIT 100";
 		List<User> users = jdbcTemplate.query(sql, (rs, rowNum) -> {
-			String firstName = rs.getString("first_name");
+			String user_id = rs.getString("user_id");
+        	String firstName = rs.getString("first_name");
         	String lastName = rs.getString("last_name");
         	String userName = rs.getString("user_name");
         	String email = rs.getString("email");
         	String password = rs.getString("password");
         	Date dateOfBirth = rs.getDate("date_of_birth");
         	String description = rs.getString("description");
-        	return new User(firstName, lastName, userName, email, password, dateOfBirth, description);
+        	boolean isActive = rs.getBoolean("active");
+        	return new User(user_id, firstName, lastName, userName, email, password, dateOfBirth, description, isActive);
 		});
 		log.info(users.size());
 		return users;

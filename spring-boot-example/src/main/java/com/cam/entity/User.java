@@ -4,7 +4,8 @@ import java.sql.Date;
 import java.util.Objects;
 
 public class User {
-
+	
+	private String id;
 	private String firstName;
 	private String lastName;
 	private String userName;
@@ -12,9 +13,11 @@ public class User {
 	private String password;
 	private Date date;
 	private String description;
+	private boolean active;
 	
-	public User(String firstName, String lastName, String userName, String email, String password, Date date,
-			String description) {
+	public User(String id, String firstName, String lastName, String userName, String email, String password, Date date,
+			String description, boolean active) {
+		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.userName = userName;
@@ -22,13 +25,20 @@ public class User {
 		this.password = password;
 		this.date = date;
 		this.description = description;
+		this.active = active;
 	}
 
+	public String getId() {
+		return id;
+	}
+	public void setId(final String id) {
+		this.id = id;
+	}
 	public String getFirstName() {
 		return firstName;
 	}
 
-	public void setFirstName(String firstName) {
+	public void setFirstName(final String firstName) {
 		this.firstName = firstName;
 	}
 
@@ -36,7 +46,7 @@ public class User {
 		return lastName;
 	}
 
-	public void setLastName(String lastName) {
+	public void setLastName(final String lastName) {
 		this.lastName = lastName;
 	}
 
@@ -44,7 +54,7 @@ public class User {
 		return userName;
 	}
 
-	public void setUserName(String userName) {
+	public void setUserName(final String userName) {
 		this.userName = userName;
 	}
 
@@ -52,7 +62,7 @@ public class User {
 		return email;
 	}
 
-	public void setEmail(String email) {
+	public void setEmail(final String email) {
 		this.email = email;
 	}
 
@@ -60,7 +70,7 @@ public class User {
 		return password;
 	}
 
-	public void setPassword(String password) {
+	public void setPassword(final String password) {
 		this.password = password;
 	}
 
@@ -68,7 +78,7 @@ public class User {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(final Date date) {
 		this.date = date;
 	}
 
@@ -76,8 +86,16 @@ public class User {
 		return description;
 	}
 
-	public void setDescription(String description) {
+	public void setDescription(final String description) {
 		this.description = description;
+	}
+	
+	public boolean isActive() {
+		return active;
+	}
+	
+	public void setActive(final boolean active) {
+		this.active = active;
 	}
 
 	@Override
@@ -94,16 +112,16 @@ public class User {
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		return Objects.equals(date, other.date) && Objects.equals(description, other.description)
+		return Objects.equals(id, other.id) && Objects.equals(date, other.date) && Objects.equals(description, other.description)
 				&& Objects.equals(email, other.email) && Objects.equals(firstName, other.firstName)
 				&& Objects.equals(lastName, other.lastName) && Objects.equals(password, other.password)
-				&& Objects.equals(userName, other.userName);
+				&& Objects.equals(userName, other.userName) && Objects.equals(active, other.active);
 	}
 
 	@Override
 	public String toString() {
 		return "User [firstName=" + firstName + ", lastName=" + lastName + ", userName=" + userName + ", email=" + email
-				+ ", date=" + date + ", description=" + description + "]";
+				+ ", date=" + date + ", description=" + description + ", isActive=" + active + "]";
 	}
 	
 	

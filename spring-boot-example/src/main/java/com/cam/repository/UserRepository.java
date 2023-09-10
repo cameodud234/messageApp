@@ -10,11 +10,11 @@ public interface UserRepository {
 	
 	public List<User> findAll();
 	
-	public void add(User arg);
+	public void add(User user);
 	
-	public void addAll(List<User> args);
+	public void addAll(List<User> users);
 	
-	public void update(User arg);
+	public void update(User user, String id);
 	
 	public void delete(String id);
 

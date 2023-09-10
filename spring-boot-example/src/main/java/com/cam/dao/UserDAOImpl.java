@@ -26,7 +26,7 @@ public class UserDAOImpl implements UserDAO {
 	public User find(String id) {
 		
 		try {
-			String sql = "SELECT * FROM users WHERE users.user_id = ?";
+			String sql = "SELECT * FROM users WHERE users.user_id = ? AND users.active = true";
 	        int searchFor = Integer.parseInt(id);
 	        
 	        List<User> users = jdbcTemplate.query(sql, (rs, rowNum) -> {
@@ -54,7 +54,7 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public List<User> findAll() {
-		String sql = "SELECT * FROM users LIMIT 100";
+		String sql = "SELECT * FROM users LIMIT 10";
 		List<User> users = jdbcTemplate.query(sql, (rs, rowNum) -> {
 			String user_id = rs.getString("user_id");
         	String firstName = rs.getString("first_name");
@@ -72,15 +72,13 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public void add(User arg) {
+	public void add(User user) {
 		try {
-//			this.jdbcTemplate.update(
-//					"insert into t_actor (first_name, last_name) values (?, ?)",
-//					"Leonor", "Watling");
-//			String sql = "INSERT INTO Users (first_name, last_name, user_name, email, password, date_of_birth, description)\n";
-//			Object[] args = {arg.getFirstName(), arg.getLastName(), arg.getUserName(), arg.getEmail(), arg.getPassword(), arg.getDate()};
-//			int[] argTypes = {java.sql.Types.VARCHAR, java.sql.Types.VARCHAR, java.sql.Types.VARCHAR, java.sql.Types.VARCHAR, java.sql.Types.VARCHAR, java.sql.Types.DATE, Types.CLOB};
-//			jdbcTemplate.update(sql, args, argTypes);
+			String sql = "INSERT INTO Users (first_name, last_name, user_name, email, password, date_of_birth, description, active) values (?, ?, ?, ?, ?, ?, ?, ?)";
+			Object[] args = {user.getFirstName(), user.getLastName(), user.getUserName(), user.getEmail(), user.getPassword(), user.getDate(), user.getDescription(), true};
+			log.info(args.toString());
+			int[] argTypes = {java.sql.Types.VARCHAR, java.sql.Types.VARCHAR, java.sql.Types.VARCHAR, java.sql.Types.VARCHAR, java.sql.Types.VARCHAR, java.sql.Types.DATE, Types.CLOB, java.sql.Types.BOOLEAN};
+			jdbcTemplate.update(sql, args, argTypes);
 			
 		} catch (DataAccessException e) { 
 			log.error(e.getMessage(), e.getCause(), e.getStackTrace());
@@ -93,12 +91,13 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public void update(User arg) {
+	public void update(User user, String id) {
 		try {
-//			String sql = "Update users set (first_name, last_name, user_name, email, password, date_of_birth, description)\n";
-//			Object[] args = {arg.getFirstName(), arg.getLastName(), arg.getUserName(), arg.getEmail(), arg.getPassword(), arg.getDate()};
-//			int[] argTypes = {java.sql.Types.VARCHAR, java.sql.Types.VARCHAR, java.sql.Types.VARCHAR, java.sql.Types.VARCHAR, java.sql.Types.VARCHAR, java.sql.Types.DATE, Types.CLOB};
-//			jdbcTemplate.update(sql, args, argTypes);
+			String sql = "UPDATE users SET first_name = ?, last_name = ?, user_name = ?, email = ?, password = ?, date_of_birth = ?, description = ?, active = ?";
+			Object[] args = {user.getFirstName(), user.getLastName(), user.getUserName(), user.getEmail(), user.getPassword(), user.getDate(), user.isActive()};
+			
+			int[] argTypes = {java.sql.Types.VARCHAR, java.sql.Types.VARCHAR, java.sql.Types.VARCHAR, java.sql.Types.VARCHAR, java.sql.Types.VARCHAR, java.sql.Types.DATE, Types.CLOB, java.sql.Types.BOOLEAN};
+			jdbcTemplate.update(sql, args, argTypes);
 		} catch (DataAccessException e) {
 			log.error(e.getMessage(), e.getCause(), e.getStackTrace());
 		}
@@ -106,8 +105,7 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public void delete(String id) {
-		// TODO Auto-generated method stub
-		
+//		String sql = "UPDATE users set"
 	}
 
 	public int getCountOfEmployees() {

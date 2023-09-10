@@ -35,8 +35,8 @@ public class UserRepositoryImpl implements UserRepository {
 	}
 
 	@Override
-	public void update(User arg) {
-		userDaoImpl.update(arg);
+	public void update(User user, String id) {
+		userDaoImpl.update(user, id);
 	}
 
 	@Override

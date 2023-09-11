@@ -40,4 +40,10 @@ public class UserController {
 		userServiceImpl.update(user, id);
 	}
 	
+	@RequestMapping(method=RequestMethod.DELETE, value="/users/{id}") 
+	public void deleteUser(@PathVariable String id) {
+		userServiceImpl.delete(id);
+	}
+	
 }
+ 

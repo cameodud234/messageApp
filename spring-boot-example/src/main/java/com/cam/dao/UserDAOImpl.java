@@ -75,7 +75,7 @@ public class UserDAOImpl implements UserDAO {
 	public void add(User user) {
 		try {
 			String sql = "INSERT INTO Users (first_name, last_name, user_name, email, password, date_of_birth, description, active) values (?, ?, ?, ?, ?, ?, ?, ?)";
-			Object[] args = {user.getFirstName(), user.getLastName(), user.getUserName(), user.getEmail(), user.getPassword(), user.getDate(), user.getDescription(), true};
+			Object[] args = {user.getFirstName(), user.getLastName(), user.getUserName(), user.getEmail(), user.getPassword(), user.getDate(), user.getDescription(), user.isActive()};
 			log.info(args.toString());
 			int[] argTypes = {java.sql.Types.VARCHAR, java.sql.Types.VARCHAR, java.sql.Types.VARCHAR, java.sql.Types.VARCHAR, java.sql.Types.VARCHAR, java.sql.Types.DATE, Types.CLOB, java.sql.Types.BOOLEAN};
 			jdbcTemplate.update(sql, args, argTypes);
@@ -93,10 +93,13 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public void update(User user, String id) {
 		try {
-			String sql = "UPDATE users SET first_name = ?, last_name = ?, user_name = ?, email = ?, password = ?, date_of_birth = ?, description = ?, active = ?";
-			Object[] args = {user.getFirstName(), user.getLastName(), user.getUserName(), user.getEmail(), user.getPassword(), user.getDate(), user.isActive()};
+			String sql = "UPDATE users SET first_name = ?, last_name = ?, user_name = ?, email = ?, password = ?, date_of_birth = ?, description = ?, active = ?"
+					+ " WHERE user_id = ?";
+			Object[] args = {user.getFirstName(), user.getLastName(), user.getUserName(), 
+					user.getEmail(), user.getPassword(), user.getDate(), user.getDescription(), user.isActive(), Integer.parseInt(id)};
 			
-			int[] argTypes = {java.sql.Types.VARCHAR, java.sql.Types.VARCHAR, java.sql.Types.VARCHAR, java.sql.Types.VARCHAR, java.sql.Types.VARCHAR, java.sql.Types.DATE, Types.CLOB, java.sql.Types.BOOLEAN};
+			int[] argTypes = {java.sql.Types.VARCHAR, java.sql.Types.VARCHAR, java.sql.Types.VARCHAR, 
+					java.sql.Types.VARCHAR, java.sql.Types.VARCHAR, java.sql.Types.DATE, Types.CLOB, java.sql.Types.BOOLEAN, java.sql.Types.INTEGER};
 			jdbcTemplate.update(sql, args, argTypes);
 		} catch (DataAccessException e) {
 			log.error(e.getMessage(), e.getCause(), e.getStackTrace());
@@ -105,13 +108,16 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public void delete(String id) {
-//		String sql = "UPDATE users set"
+			String sql = "UPDATE users SET active = ?" + " WHERE user_id = ?";
+			Object[] args = { false, Integer.parseInt(id) };
+			
+			int[] argTypes = {java.sql.Types.BOOLEAN, java.sql.Types.INTEGER};
+			jdbcTemplate.update(sql, args, argTypes);
 	}
 
 	public int getCountOfEmployees() {
 		String sql = "SELECT COUNT(*) FROM users";
 		int count = jdbcTemplate.queryForObject(sql, Integer.class);
-		log.info("user count: " + count);
 		return count;
 	}
 	

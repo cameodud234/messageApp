@@ -25,8 +25,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void add(User arg) {
-		userRepositoryImpl.update(arg);
+	public void add(User user) {
+		userRepositoryImpl.add(user);
 	}
 
 	@Override
@@ -35,8 +35,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void update(User arg) {
-		userRepositoryImpl.update(arg);
+	public void update(User user, String id) {
+		userRepositoryImpl.update(user, id);
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http'
+import { User } from './models/user.Model';
 
 @Injectable({
   providedIn: 'root'
@@ -17,13 +18,15 @@ export class UserServiceService {
   }
 
   addUser(user: User) {
-    return this.http.post(`${this.baseUrl}${this.usersEndpoint, user}`)
+    return this.http.post(`${this.baseUrl}${this.usersEndpoint}`, user)
+  }
+
+  updateUser(user: User) {
+    return this.http.put(`${this.baseUrl}${this.usersEndpoint}/${user.id}`, user)
   }
 
   deleteUser(userId: number) {
     return this.http.delete(`${this.baseUrl}${this.usersEndpoint}/${userId}`)
   }
-
-  // Service method for making API calls will be defined here.
 
 }

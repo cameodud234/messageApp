@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http'
-import { User } from './models/user.Model';
+import { HttpClient} from '@angular/common/http';
+import { User } from '../models/user.Model';
 
 @Injectable({
   providedIn: 'root'
 })
-
-export class UserServiceService {
+export class UserService {
 
   private baseUrl = 'http://localhost:8000/api';
   private usersEndpoint = '/users';

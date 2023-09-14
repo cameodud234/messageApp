@@ -75,7 +75,7 @@ public class UserDAOImpl implements UserDAO {
 	public void add(User user) {
 		try {
 			String sql = "INSERT INTO Users (first_name, last_name, user_name, email, password, date_of_birth, description, active) values (?, ?, ?, ?, ?, ?, ?, ?)";
-			Object[] args = {user.getFirstName(), user.getLastName(), user.getUserName(), user.getEmail(), user.getPassword(), user.getDate(), user.getDescription(), user.isActive()};
+			Object[] args = {user.getFirstName(), user.getLastName(), user.getUserName(), user.getEmail(), user.getPassword(), user.getDateOfBirth(), user.getDescription(), user.isActive()};
 			log.info(args.toString());
 			int[] argTypes = {java.sql.Types.VARCHAR, java.sql.Types.VARCHAR, java.sql.Types.VARCHAR, java.sql.Types.VARCHAR, java.sql.Types.VARCHAR, java.sql.Types.DATE, Types.CLOB, java.sql.Types.BOOLEAN};
 			jdbcTemplate.update(sql, args, argTypes);
@@ -96,7 +96,7 @@ public class UserDAOImpl implements UserDAO {
 			String sql = "UPDATE users SET first_name = ?, last_name = ?, user_name = ?, email = ?, password = ?, date_of_birth = ?, description = ?, active = ?"
 					+ " WHERE user_id = ?";
 			Object[] args = {user.getFirstName(), user.getLastName(), user.getUserName(), 
-					user.getEmail(), user.getPassword(), user.getDate(), user.getDescription(), user.isActive(), Integer.parseInt(id)};
+					user.getEmail(), user.getPassword(), user.getDateOfBirth(), user.getDescription(), user.isActive(), Integer.parseInt(id)};
 			
 			int[] argTypes = {java.sql.Types.VARCHAR, java.sql.Types.VARCHAR, java.sql.Types.VARCHAR, 
 					java.sql.Types.VARCHAR, java.sql.Types.VARCHAR, java.sql.Types.DATE, Types.CLOB, java.sql.Types.BOOLEAN, java.sql.Types.INTEGER};

@@ -1,6 +1,7 @@
 package com.cam.entity;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.Objects;
 
 public class User {
@@ -11,20 +12,24 @@ public class User {
 	private String userName;
 	private String email;
 	private String password;
-	private Date date;
-	private String description;
+	private Date dateOfBirth;
+	private Role role;
+	private Timestamp createdAt;
+	private Timestamp updatedAt;
 	private boolean active;
 	
-	public User(String id, String firstName, String lastName, String userName, String email, String password, Date date,
-			String description, boolean active) {
+	
+	public User(String id, String firstName, String lastName, String userName, String email, String password, Date dateOfBirth,
+			Role role, Timestamp createdAt, Timestamp updatedAt, boolean active) {
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.userName = userName;
 		this.email = email;
 		this.password = password;
-		this.date = date;
-		this.description = description;
+		this.dateOfBirth = dateOfBirth;
+		this.createdAt = createdAt;
+		this.updatedAt = createdAt;
 		this.active = active;
 	}
 
@@ -74,20 +79,28 @@ public class User {
 		this.password = password;
 	}
 
-	public Date getDate() {
-		return date;
+	public Date getDateOfBirth() {
+		return dateOfBirth;
 	}
 
-	public void setDate(final Date date) {
-		this.date = date;
+	public void setDateOfBirth(final Date dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
 	}
 
-	public String getDescription() {
-		return description;
+	public Timestamp getCreatedAt() {
+		return createdAt;
 	}
-
-	public void setDescription(final String description) {
-		this.description = description;
+	
+	public void setCreatedAt(final Timestamp createdAt) {
+		this.createdAt = createdAt;
+	}
+	
+	public Timestamp getUpdatedAt() {
+		return updatedAt;
+	}
+	
+	public void setUpdatedAt(final Timestamp updatedAt) {
+		this.updatedAt = updatedAt;
 	}
 	
 	public boolean isActive() {
@@ -100,7 +113,7 @@ public class User {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(date, description, email, firstName, lastName, password, userName);
+		return Objects.hash(dateOfBirth, createdAt, updatedAt, email, firstName, lastName, password, userName, id);
 	}
 
 	@Override
@@ -112,16 +125,17 @@ public class User {
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		return Objects.equals(id, other.id) && Objects.equals(date, other.date) && Objects.equals(description, other.description)
-				&& Objects.equals(email, other.email) && Objects.equals(firstName, other.firstName)
-				&& Objects.equals(lastName, other.lastName) && Objects.equals(password, other.password)
-				&& Objects.equals(userName, other.userName) && Objects.equals(active, other.active);
+		return id.equals(other.id) && dateOfBirth.equals(other.dateOfBirth)
+				&& createdAt.equals(createdAt) && updatedAt.equals(other.updatedAt)
+				&& email.equalsIgnoreCase(other.email) && firstName.equalsIgnoreCase(other.firstName)
+				&& lastName.equalsIgnoreCase(other.lastName) && password.equalsIgnoreCase(other.password)
+				&& userName.equalsIgnoreCase(userName) && (active == other.active);
 	}
 
 	@Override
 	public String toString() {
 		return "User [firstName=" + firstName + ", lastName=" + lastName + ", userName=" + userName + ", email=" + email
-				+ ", date=" + date + ", description=" + description + ", isActive=" + active + "]";
+				+ ", dateOfBirth=" + dateOfBirth + ", role=" + role + "createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", isActive=" + active + "]";
 	}
 	
 	

@@ -4,7 +4,14 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.Objects;
 
+import javax.management.relation.RoleNotFoundException;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class User {
+	
+	private final Logger log = LogManager.getLogger(User.class);
 	
 	private String id;
 	private String firstName;
@@ -13,14 +20,14 @@ public class User {
 	private String email;
 	private String password;
 	private Date dateOfBirth;
-	private Role role;
+	private String role;
 	private Timestamp createdAt;
 	private Timestamp updatedAt;
 	private boolean active;
 	
 	
 	public User(String id, String firstName, String lastName, String userName, String email, String password, Date dateOfBirth,
-			Role role, Timestamp createdAt, Timestamp updatedAt, boolean active) {
+			String role, Timestamp createdAt, Timestamp updatedAt, boolean active) {
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -28,6 +35,7 @@ public class User {
 		this.email = email;
 		this.password = password;
 		this.dateOfBirth = dateOfBirth;
+		this.role = role;
 		this.createdAt = createdAt;
 		this.updatedAt = createdAt;
 		this.active = active;
@@ -85,6 +93,22 @@ public class User {
 
 	public void setDateOfBirth(final Date dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
+	}
+	
+	public String getRole() {
+		return role;
+	}
+	
+	public void setRole(final String role) {
+		try {
+			if(role != Role.USER.role && role != Role.ADMIN.role && role != Role.DB_ADMIN.role) {
+				throw new RoleNotFoundException("Role given does not exist...");
+			}
+			this.role = role;
+		} 
+		catch (RoleNotFoundException e) {
+			log.info(e.getCause() + ", " + e.getMessage());
+		}
 	}
 
 	public Timestamp getCreatedAt() {

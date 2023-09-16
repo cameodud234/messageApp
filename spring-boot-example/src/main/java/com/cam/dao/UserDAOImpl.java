@@ -2,6 +2,7 @@ package com.cam.dao;
 
 import java.sql.Date;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.sql.Types;
 import java.util.List;
 
@@ -12,6 +13,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
+import com.cam.entity.Role;
 import com.cam.entity.User;
 
 @Service
@@ -37,9 +39,11 @@ public class UserDAOImpl implements UserDAO {
 	        	String email = rs.getString("email");
 	        	String password = rs.getString("password");
 	        	Date dateOfBirth = rs.getDate("date_of_birth");
-	        	String description = rs.getString("description");
+	        	String role = rs.getString("role");
+	        	Timestamp createdAt = rs.getTimestamp("create_at");
+	        	Timestamp updatedAt = rs.getTimestamp("updated_at");
 	        	boolean isActive = rs.getBoolean("active");
-	        	return new User(user_id, firstName, lastName, userName, email, password, dateOfBirth, description, isActive);
+	        	return new User(user_id, firstName, lastName, userName, email, password, dateOfBirth, role, createdAt, updatedAt, isActive);
 	        }, searchFor); 
 	        
 	        
@@ -63,9 +67,11 @@ public class UserDAOImpl implements UserDAO {
         	String email = rs.getString("email");
         	String password = rs.getString("password");
         	Date dateOfBirth = rs.getDate("date_of_birth");
-        	String description = rs.getString("description");
+        	String role = rs.getString("role");
+        	Timestamp createdAt = rs.getTimestamp("create_at");
+        	Timestamp updatedAt = rs.getTimestamp("updated_at");
         	boolean isActive = rs.getBoolean("active");
-        	return new User(user_id, firstName, lastName, userName, email, password, dateOfBirth, description, isActive);
+        	return new User(user_id, firstName, lastName, userName, email, password, dateOfBirth, role, createdAt, updatedAt, isActive);
 		});
 		log.info(users.size());
 		return users;
@@ -75,9 +81,12 @@ public class UserDAOImpl implements UserDAO {
 	public void add(User user) {
 		try {
 			String sql = "INSERT INTO Users (first_name, last_name, user_name, email, password, date_of_birth, description, active) values (?, ?, ?, ?, ?, ?, ?, ?)";
-			Object[] args = {user.getFirstName(), user.getLastName(), user.getUserName(), user.getEmail(), user.getPassword(), user.getDate(), user.getDescription(), user.isActive()};
+			Object[] args = {user.getFirstName(), user.getLastName(), user.getUserName(), 
+					user.getEmail(), user.getPassword(), user.getDateOfBirth(), user.getRole(), user.isActive()};
 			log.info(args.toString());
-			int[] argTypes = {java.sql.Types.VARCHAR, java.sql.Types.VARCHAR, java.sql.Types.VARCHAR, java.sql.Types.VARCHAR, java.sql.Types.VARCHAR, java.sql.Types.DATE, Types.CLOB, java.sql.Types.BOOLEAN};
+			int[] argTypes = {java.sql.Types.VARCHAR, java.sql.Types.VARCHAR, java.sql.Types.VARCHAR, 
+					java.sql.Types.VARCHAR, java.sql.Types.VARCHAR, java.sql.Types.DATE, java.sql.Types.VARCHAR, 
+						java.sql.Types.TIMESTAMP_WITH_TIMEZONE, java.sql.Types.TIMESTAMP_WITH_TIMEZONE, java.sql.Types.BOOLEAN};
 			jdbcTemplate.update(sql, args, argTypes);
 			
 		} catch (DataAccessException e) { 
@@ -96,10 +105,11 @@ public class UserDAOImpl implements UserDAO {
 			String sql = "UPDATE users SET first_name = ?, last_name = ?, user_name = ?, email = ?, password = ?, date_of_birth = ?, description = ?, active = ?"
 					+ " WHERE user_id = ?";
 			Object[] args = {user.getFirstName(), user.getLastName(), user.getUserName(), 
-					user.getEmail(), user.getPassword(), user.getDate(), user.getDescription(), user.isActive(), Integer.parseInt(id)};
+					user.getEmail(), user.getPassword(), user.getDateOfBirth(), user.getRole(), user.isActive(), Integer.parseInt(id)};
 			
 			int[] argTypes = {java.sql.Types.VARCHAR, java.sql.Types.VARCHAR, java.sql.Types.VARCHAR, 
-					java.sql.Types.VARCHAR, java.sql.Types.VARCHAR, java.sql.Types.DATE, Types.CLOB, java.sql.Types.BOOLEAN, java.sql.Types.INTEGER};
+					java.sql.Types.VARCHAR, java.sql.Types.VARCHAR, java.sql.Types.DATE, java.sql.Types.VARCHAR, 
+						java.sql.Types.TIMESTAMP_WITH_TIMEZONE, java.sql.Types.TIMESTAMP_WITH_TIMEZONE, java.sql.Types.BOOLEAN};
 			jdbcTemplate.update(sql, args, argTypes);
 		} catch (DataAccessException e) {
 			log.error(e.getMessage(), e.getCause(), e.getStackTrace());

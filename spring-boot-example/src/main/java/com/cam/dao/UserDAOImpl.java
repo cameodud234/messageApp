@@ -1,9 +1,7 @@
 package com.cam.dao;
 
 import java.sql.Date;
-import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.sql.Types;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;

@@ -1,11 +1,12 @@
-package com.cam.dao;
+package com.cam.service;
 
 import java.util.List;
 
 import com.cam.entity.Message;
 
-public interface MessageDAO {
-	public Message find(String id);
+public interface MessageService {
+	
+	public Message find(String senderId, String receiverId);
 	
 	public List<Message> findAll();
 	
@@ -13,6 +14,6 @@ public interface MessageDAO {
 	
 	public void addAll(List<Message> messages);
 	
-	public void delete(String id);
+	public void delete(String senderId, String receiverId);
 	
 }

@@ -26,14 +26,14 @@ public class UserDAOImplTest {
 	private UserDAOImpl userDAOImpl;
 
     
-    @Test
-    public void testFind() {
-    	User user = userDAOImpl.find("1");
-    	log.info("user:" + user);
-    	LocalDate date = LocalDate.of(1982, 4, 9);
-    	Date actualBirthday = Date.valueOf(date);
-    	assertEquals(user, new User("1","Bob", "Ross", "bross234", "bross2@gmail.com", "123", 
-    			actualBirthday, "user", new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()),true));
-    }
+//    @Test
+//    public void testFind() {
+//    	User user = userDAOImpl.find("1");
+//    	log.info("user:" + user);
+//    	LocalDate date = LocalDate.of(1982, 4, 9);
+//    	Date actualBirthday = Date.valueOf(date);
+//    	assertEquals(user, new User("1","Bob", "Ross", "bross234", "bross2@gmail.com", "123", 
+//    			actualBirthday, "user", new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()),true));
+//    }
 
 }

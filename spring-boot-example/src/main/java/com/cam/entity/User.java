@@ -101,7 +101,7 @@ public class User {
 	
 	public void setRole(final String role) {
 		try {
-			if(role != Role.USER.role && role != Role.ADMIN.role && role != Role.DB_ADMIN.role) {
+			if(isValidRole(role)) {
 				throw new RoleNotFoundException("Role given does not exist...");
 			}
 			this.role = role;
@@ -109,6 +109,10 @@ public class User {
 		catch (RoleNotFoundException e) {
 			log.info(e.getCause() + ", " + e.getMessage());
 		}
+	}
+	
+	private boolean isValidRole(final String role) {
+		return role != Role.USER.role && role != Role.ADMIN.role && role != Role.DB_ADMIN.role;
 	}
 
 	public Timestamp getCreatedAt() {

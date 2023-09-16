@@ -39,7 +39,7 @@ public class UserTest {
     }
     
     @Test void testGetLastName() {
-    	assertEquals("John", user.getLastName());
+    	assertEquals("Doe", user.getLastName());
     }
     
     @Test void testGetUserName() {
@@ -73,31 +73,72 @@ public class UserTest {
     @Test void testIsActive() {
     	assertTrue(user.isActive());
     }
+    
+    @Test
+    public void testSetId() {
+        user.setId("2");
+        assertEquals("2", user.getId());
+    }
 
     @Test
-    public void testSetters() {
-        user.setId("2");
+    public void testSetFirstName() {
         user.setFirstName("Jane");
-        user.setLastName("Smith");
-        user.setUserName("janesmith");
-        user.setEmail("jane@example.com");
-        user.setPassword("newpassword");
-        user.setDateOfBirth(Date.valueOf("1995-05-05"));
-        user.setRole("admin");
-        user.setCreatedAt(new Timestamp(System.currentTimeMillis()));
-        user.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
-        user.setActive(false);
-
-        assertEquals("2", user.getId());
         assertEquals("Jane", user.getFirstName());
+    }
+
+    @Test
+    public void testSetLastName() {
+        user.setLastName("Smith");
         assertEquals("Smith", user.getLastName());
+    }
+
+    @Test
+    public void testSetUserName() {
+        user.setUserName("janesmith");
         assertEquals("janesmith", user.getUserName());
+    }
+
+    @Test
+    public void testSetEmail() {
+        user.setEmail("jane@example.com");
         assertEquals("jane@example.com", user.getEmail());
+    }
+
+    @Test
+    public void testSetPassword() {
+        user.setPassword("newpassword");
         assertEquals("newpassword", user.getPassword());
+    }
+
+    @Test
+    public void testSetDateOfBirth() {
+        user.setDateOfBirth(Date.valueOf("1995-05-05"));
         assertEquals(Date.valueOf("1995-05-05"), user.getDateOfBirth());
+    }
+
+    @Test
+    public void testSetRole() {
+        user.setRole("admin");
         assertEquals("admin", user.getRole());
-        assertNotNull(user.getCreatedAt());
-        assertNotNull(user.getUpdatedAt());
+    }
+
+    @Test
+    public void testSetCreatedAt() {
+        Timestamp createdAt = new Timestamp(System.currentTimeMillis());
+        user.setCreatedAt(createdAt);
+        assertEquals(createdAt, user.getCreatedAt());
+    }
+
+    @Test
+    public void testSetUpdatedAt() {
+        Timestamp updatedAt = new Timestamp(System.currentTimeMillis());
+        user.setUpdatedAt(updatedAt);
+        assertEquals(updatedAt, user.getUpdatedAt());
+    }
+
+    @Test
+    public void testSetActive() {
+        user.setActive(false);
         assertFalse(user.isActive());
     }
 

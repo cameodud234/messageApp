@@ -1,10 +1,10 @@
-package com.cam.dao;
+package com.cam.service;
 
 import java.util.List;
 
 import com.cam.entity.Message;
 
-public interface MessageDAO {
+public interface MessageService {
 	
 	public Message find(String id);
 	

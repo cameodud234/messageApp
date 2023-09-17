@@ -11,147 +11,121 @@ import org.junit.jupiter.api.Test;
 
 import java.sql.Timestamp;
 
-class MessagesTest {
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import java.sql.Timestamp;
 
-    private Messages messages;
+class MessageTest {
+
+    private Message message;
 
     @BeforeEach
     void setUp() {
-        messages = new Messages(
-                "1",
-                "5",
-                "8",
-                "Hello, this is a test message.",
-                new Timestamp(System.currentTimeMillis()),
-                false,
-                true
-        );
+
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+
+        message = new Message("1", "3", "6", "Test message", timestamp, false, true);
     }
 
     @Test
-    void testGetId() {
-        assertEquals("1", messages.getId());
+    void messageIdGetter() {
+        assertEquals("1", message.getMessageId());
     }
 
     @Test
-    void testGetSenderId() {
-        assertEquals("5", messages.getSenderId());
+    void senderGetter() {
+        assertEquals("3", message.getSenderId());
     }
 
     @Test
-    void testGetReceiverId() {
-        assertEquals("8", messages.getReceiverId());
+    void receiverGetter() {
+        assertEquals("6", message.getReceiverId());
     }
 
     @Test
-    void testGetMessage() {
-        assertEquals("Hello, this is a test message.", messages.getMessage());
+    void contentGetter() {
+        assertEquals("Test message", message.getContent());
     }
 
     @Test
-    void testGetTimestamp() {
-        assertNotNull(messages.getTimestamp());
+    void timestampGetter() {
+        assertNotNull(message.getTimestamp());
     }
 
     @Test
-    void testIsRead() {
-        assertFalse(messages.isRead());
+    void readGetter() {
+        assertFalse(message.isRead());
     }
 
     @Test
-    void testIsActive() {
-        assertTrue(messages.isActive());
+    void activeGetter() {
+        assertTrue(message.isActive());
     }
 
     @Test
-    void testSetId() {
-        messages.setId("2");
-        assertEquals("2", messages.getId());
+    void messageIdSetter() {
+        message.setMessageId("2");
+        assertEquals("2", message.getMessageId());
     }
 
     @Test
-    void testSetSenderId() {
-        messages.setSenderId("newSender");
-        assertEquals("newSender", messages.getSenderId());
-    }
-    
-    @Test
-    void testSetReceiverId() {
-        messages.setReceiverId("newReceiver");
-        assertEquals("newReceiver", messages.getReceiverId());
+    void senderSetter() {
+        message.setSenderId("9");
+        assertEquals("9", message.getSenderId());
     }
 
     @Test
-    void testSetMessage() {
-        messages.setMessage("Updated message.");
-        assertEquals("Updated message.", messages.getMessage());
+    void receiverSetter() {
+        message.setReceiverId("10");
+        assertEquals("10", message.getReceiverId());
     }
 
     @Test
-    void testSetTimestamp() {
-        Timestamp newTimestamp = new Timestamp(System.currentTimeMillis());
-        messages.setTimestamp(newTimestamp);
-        assertEquals(newTimestamp, messages.getTimestamp());
+    void contentSetter() {
+        message.setContent("Updated test message");
+        assertEquals("Updated test message", message.getContent());
     }
 
     @Test
-    void testSetRead() {
-        messages.setRead(true);
-        assertTrue(messages.isRead());
+    void timestampSetter() {
+        Timestamp newTimestamp = new Timestamp(System.currentTimeMillis() + 1000);
+        message.setTimestamp(newTimestamp);
+        assertEquals(newTimestamp, message.getTimestamp());
     }
 
     @Test
-    void testSetActive() {
-        messages.setActive(false);
-        assertFalse(messages.isActive());
+    void readSetter() {
+        message.setRead(true);
+        assertTrue(message.isRead());
+    }
+
+    @Test
+    void activeSetter() {
+        message.setActive(false);
+        assertFalse(message.isActive());
     }
 
     @Test
     void testEquals() {
-        Messages sameMessages = new Messages(
-                "1",
-                "5",
-                "8",
-                "Hello, this is a test message.",
-                new Timestamp(System.currentTimeMillis()),
-                false,
-                true
-        );
+        Message sameMessage = new Message("1", "3", "6", "Test message", new Timestamp(System.currentTimeMillis()), false, true);
+        Message differentMessage = new Message("2", "11", "13", "Different message", new Timestamp(System.currentTimeMillis()), true, false);
 
-        Messages differentMessages = new Messages(
-                "2",
-                "differentSender",
-                "differentReceiver",
-                "Different message.",
-                new Timestamp(System.currentTimeMillis()),
-                true,
-                false
-        );
-
-        assertTrue(messages.equals(sameMessages));
-        assertFalse(messages.equals(differentMessages));
+        assertTrue(message.equals(sameMessage));
+        assertFalse(message.equals(differentMessage));
     }
 
     @Test
     void testHashCode() {
-        Messages sameMessages = new Messages(
-                "1",
-                "5",
-                "8",
-                "Hello, this is a test message.",
-                new Timestamp(System.currentTimeMillis()),
-                false,
-                true
-        );
+        Message sameMessage = new Message("1", "3", "6", "Test message", new Timestamp(System.currentTimeMillis()), false, true);
 
-        assertEquals(messages.hashCode(), sameMessages.hashCode());
+        assertEquals(message.hashCode(), sameMessage.hashCode());
     }
 
     @Test
     void testToString() {
-        String expectedToString = "Messages [id=1, senderId=5, receiverId=8, " +
-                "message=Hello, this is a test message., timestamp=" + messages.getTimestamp() +
-                ", read=false, active=true]";
-        assertEquals(expectedToString, messages.toString());
+        String expectedToString = "Message [messageId=1, senderId=3, receiverId=6, content=Test message, timestamp=" + message.getTimestamp() + ", read=false, active=true]";
+        assertEquals(expectedToString, message.toString());
     }
 }
+

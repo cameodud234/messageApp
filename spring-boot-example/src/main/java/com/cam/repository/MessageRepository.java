@@ -1,11 +1,11 @@
-package com.cam.dao;
+package com.cam.repository;
 
 import java.util.List;
 
 import com.cam.entity.Message;
 
-public interface MessageDAO {
-	
+public interface MessageRepository {
+
 	public Message find(String id);
 	
 	public List<Message> findAll();

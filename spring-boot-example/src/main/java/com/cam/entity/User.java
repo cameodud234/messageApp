@@ -40,6 +40,20 @@ public class User {
 		this.updatedAt = createdAt;
 		this.active = active;
 	}
+	
+	public User(User user) {
+		id = user.id;
+		firstName = user.firstName;
+		lastName = user.lastName;
+		userName = user.userName;
+		email= user.email;
+		password = user.password;
+		dateOfBirth = user.dateOfBirth;
+		role = user.role;
+		createdAt = user.createdAt;
+		updatedAt = user.updatedAt;
+		active = user.active;
+	}
 
 	public String getId() {
 		return id;
@@ -153,11 +167,11 @@ public class User {
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		return id.equals(other.id) && dateOfBirth.equals(other.dateOfBirth)
-				&& createdAt.equals(createdAt) && updatedAt.equals(other.updatedAt)
-				&& email.equalsIgnoreCase(other.email) && firstName.equalsIgnoreCase(other.firstName)
-				&& lastName.equalsIgnoreCase(other.lastName) && password.equalsIgnoreCase(other.password)
-				&& userName.equalsIgnoreCase(userName) && (active == other.active);
+		return Objects.equals(id, other.id) && Objects.equals(dateOfBirth, other.dateOfBirth)
+				&& Objects.equals(createdAt, createdAt) && Objects.equals(updatedAt, other.updatedAt)
+				&& Objects.equals(email, other.email) && Objects.equals(firstName, other.firstName)
+				&& Objects.equals(lastName, other.lastName) && Objects.equals(password, other.password)
+				&& Objects.equals(userName, other.userName) && (active == other.active);
 	}
 
 	@Override

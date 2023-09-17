@@ -26,7 +26,7 @@ public class UserMessageDAOImpl implements UserMessageDAO {
 	public List<Message> findMessages(String userId) {
 		try {
 			
-			String sql = "SELECT messages.* "
+			String sql = "SELECT DISTINCT messages.* "
 					+ "FROM messages "
 					+ "INNER JOIN users ON messages.sender_id = ? "
 					+ "WHERE messages.active = true";

@@ -6,7 +6,7 @@ import com.cam.entity.Message;
 
 public interface MessageService {
 	
-	public Message find(String senderId, String receiverId);
+	public Message find(String id);
 	
 	public List<Message> findAll();
 	
@@ -14,6 +14,6 @@ public interface MessageService {
 	
 	public void addAll(List<Message> messages);
 	
-	public void delete(String senderId, String receiverId);
+	public void delete(String id);
 	
 }

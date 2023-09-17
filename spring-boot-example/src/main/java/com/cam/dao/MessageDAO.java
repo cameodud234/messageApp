@@ -5,6 +5,7 @@ import java.util.List;
 import com.cam.entity.Message;
 
 public interface MessageDAO {
+	
 	public Message find(String id);
 	
 	public List<Message> findAll();

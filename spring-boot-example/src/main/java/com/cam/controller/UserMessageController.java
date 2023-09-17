@@ -18,12 +18,12 @@ public class UserMessageController {
 	@Autowired
 	private UserMessageServiceImpl userMessageServiceImpl;
 	
-	@RequestMapping(method=RequestMethod.GET, value="/messages/{sender_id}/{receiver_id}")
+	@RequestMapping(method=RequestMethod.GET, value="/user-messages/{sender_id}/{receiver_id}")
 	public List<Message> getMessages(@PathVariable String sender_id, @PathVariable String receiver_id) {
 		return userMessageServiceImpl.findSenderReceiverMessages(sender_id, receiver_id);
 	}
 	
-	@RequestMapping(method=RequestMethod.POST, value="/messages")
+	@RequestMapping(method=RequestMethod.POST, value="/user-messages")
 	public void addMessage(@RequestBody Message message) {
 		userMessageServiceImpl.addSenderReceiverMessage(message);
 	}

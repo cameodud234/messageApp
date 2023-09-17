@@ -18,18 +18,14 @@ import java.sql.Timestamp;
 
 class MessageTest {
 
-    private User sender;
-    private User receiver;
     private Message message;
 
     @BeforeEach
     void setUp() {
-        sender = new User("1", "John", "Doe", "john.doe", "john@example.com", "password", null, "user", null, null, true);
-        receiver = new User("2", "Jane", "Doe", "jane.doe", "jane@example.com", "password", null, "user", null, null, true);
 
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 
-        message = new Message("1", sender, receiver, "Test message", timestamp, false, true);
+        message = new Message("1", "3", "6", "Test message", timestamp, false, true);
     }
 
     @Test
@@ -39,12 +35,12 @@ class MessageTest {
 
     @Test
     void senderGetter() {
-        assertEquals(sender, message.getSender());
+        assertEquals("3", message.getSenderId());
     }
 
     @Test
     void receiverGetter() {
-        assertEquals(receiver, message.getReceiver());
+        assertEquals("6", message.getReceiverId());
     }
 
     @Test
@@ -75,16 +71,14 @@ class MessageTest {
 
     @Test
     void senderSetter() {
-        User newSender = new User("3", "Alice", "Smith", "alice.smith", "alice@example.com", "newpassword", null, "user", null, null, true);
-        message.setSender(newSender);
-        assertEquals(newSender, message.getSender());
+        message.setSenderId("9");
+        assertEquals("9", message.getSenderId());
     }
 
     @Test
     void receiverSetter() {
-        User newReceiver = new User("4", "Bob", "Johnson", "bob.johnson", "bob@example.com", "newpassword", null, "user", null, null, true);
-        message.setReceiver(newReceiver);
-        assertEquals(newReceiver, message.getReceiver());
+        message.setReceiverId("10");
+        assertEquals("10", message.getReceiverId());
     }
 
     @Test
@@ -114,8 +108,8 @@ class MessageTest {
 
     @Test
     void testEquals() {
-        Message sameMessage = new Message("1", sender, receiver, "Test message", new Timestamp(System.currentTimeMillis()), false, true);
-        Message differentMessage = new Message("2", receiver, sender, "Different message", new Timestamp(System.currentTimeMillis()), true, false);
+        Message sameMessage = new Message("1", "3", "6", "Test message", new Timestamp(System.currentTimeMillis()), false, true);
+        Message differentMessage = new Message("2", "11", "13", "Different message", new Timestamp(System.currentTimeMillis()), true, false);
 
         assertTrue(message.equals(sameMessage));
         assertFalse(message.equals(differentMessage));
@@ -123,14 +117,14 @@ class MessageTest {
 
     @Test
     void testHashCode() {
-        Message sameMessage = new Message("1", sender, receiver, "Test message", new Timestamp(System.currentTimeMillis()), false, true);
+        Message sameMessage = new Message("1", "3", "6", "Test message", new Timestamp(System.currentTimeMillis()), false, true);
 
         assertEquals(message.hashCode(), sameMessage.hashCode());
     }
 
     @Test
     void testToString() {
-        String expectedToString = "Message [messageId=1, senderId=1, receiverId=2, content=Test message, timestamp=" + message.getTimestamp() + ", read=false, active=true]";
+        String expectedToString = "Message [messageId=1, senderId=3, receiverId=6, content=Test message, timestamp=" + message.getTimestamp() + ", read=false, active=true]";
         assertEquals(expectedToString, message.toString());
     }
 }

@@ -13,18 +13,18 @@ public class Message {
 	private final Logger log = LogManager.getLogger(Message.class);
 	
     private String messageId;
-    private User sender;
-    private User receiver;
+    private String senderId;
+    private String receiverId;
     private String content;
     private Timestamp timestamp;
     private boolean read;
     private boolean active;
 
 
-    public Message(String messageId, User sender, User receiver, String content, Timestamp timestamp, boolean read, boolean active) {
+    public Message(String messageId, String senderId, String receiverId, String content, Timestamp timestamp, boolean read, boolean active) {
     	this.messageId = messageId;
-        this.sender = new User(sender);
-        this.receiver = new User(receiver);
+        this.senderId = senderId;
+        this.receiverId = receiverId;
         this.content = content;
         this.timestamp = timestamp;
         this.read = read;
@@ -42,23 +42,23 @@ public class Message {
 	}
 
 
-	public User getSender() {
-		return new User(sender);
+	public String getSenderId() {
+		return senderId;
 	}
 
 
-	public void setSender(User sender) {
-		this.sender = new User(sender);
+	public void setSenderId(String senderId) {
+		this.senderId = senderId;
 	}
 
 
-	public User getReceiver() {
-		return new User(receiver);
+	public String getReceiverId() {
+		return receiverId;
 	}
 
 
-	public void setReceiver(User receiver) {
-		this.receiver = new User(receiver);
+	public void setReceiverId(String receiverId) {
+		this.receiverId = receiverId;
 	}
 
 
@@ -104,7 +104,7 @@ public class Message {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(active, content, messageId, read, receiver, sender, timestamp);
+		return Objects.hash(active, content, messageId, read, receiverId, senderId, timestamp);
 	}
 
 	@Override
@@ -118,13 +118,13 @@ public class Message {
 		Message other = (Message) obj;
 		return active == other.active && Objects.equals(content, other.content)
 				&& Objects.equals(messageId, other.messageId) && read == other.read
-				&& Objects.equals(receiver, other.receiver) && Objects.equals(sender, other.sender)
+				&& Objects.equals(receiverId, other.receiverId) && Objects.equals(senderId, other.senderId)
 				&& Objects.equals(timestamp, other.timestamp);
 	}
 
 	@Override
 	public String toString() {
-		return "Message [messageId=" + messageId + ", senderId=" + sender.getId() + ", receiverId=" + receiver.getId() + ", content="
+		return "Message [messageId=" + messageId + ", senderId=" + senderId + ", receiverId=" + receiverId + ", content="
 				+ content + ", timestamp=" + timestamp + ", read=" + read + ", active=" + active + "]";
 	}
     

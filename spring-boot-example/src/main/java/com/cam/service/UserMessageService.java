@@ -9,5 +9,7 @@ public interface UserMessageService {
 	public List<Message> findMessages(String userId);	
 	
 	public List<Message> findSenderReceiverMessages(String senderId, String receiverId);
+	
+	public void addSenderReceiverMessage(Message message);
 
 }

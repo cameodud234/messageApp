@@ -23,5 +23,10 @@ public class UserMessageServiceImpl implements UserMessageService {
 	public List<Message> findSenderReceiverMessages(String senderId, String receiverId) {
 		return userMessageRepositoryImpl.findSenderReceiverMessages(senderId, receiverId);
 	}
+
+	@Override
+	public void addSenderReceiverMessage(Message message) {
+		userMessageRepositoryImpl.addSenderReceiverMessage(message);
+	}
 	
 }

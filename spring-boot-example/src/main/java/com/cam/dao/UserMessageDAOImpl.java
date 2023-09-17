@@ -34,9 +34,10 @@ public class UserMessageDAOImpl implements UserMessageDAO {
 			
 			
 		} catch (BadSqlGrammarException e) {
-			log.error(e.getMessage(), e.getCause(), e.getStackTrace());
+			log.error("Error executing: ", e.getSql());
+			log.error("Exception message: ", e.getMessage(), e);
 		} catch (DataAccessException e) {
-			log.error(e.getMessage(), e.getCause(), e.getStackTrace());
+			log.error("Exception message: ", e.getMessage(), e);
 		}
 		
 		return null;
@@ -75,9 +76,10 @@ public class UserMessageDAOImpl implements UserMessageDAO {
 			
 			
 		} catch (BadSqlGrammarException e) {
-			log.error(e.getMessage(), e.getCause(), e.getStackTrace());
+			log.error("Error executing: ", e.getSql());
+			log.error("Exception message: ", e.getMessage(), e);
 		} catch (DataAccessException e) {
-			log.error(e.getMessage(), e.getCause(), e.getStackTrace());
+			log.error("Exception message: ", e.getMessage(), e);
 		}
 		return null;
 	}
@@ -89,15 +91,17 @@ public class UserMessageDAOImpl implements UserMessageDAO {
 			Object[] args = { Integer.parseInt(message.getSenderId()), Integer.parseInt(message.getReceiverId()), 
 					message.getContent(), message.getTimestamp(), message.isRead(), message.isActive() };
 			int[] argTypes = { java.sql.Types.INTEGER, java.sql.Types.INTEGER, 
-					java.sql.Types.BLOB, java.sql.Types.TIMESTAMP_WITH_TIMEZONE, java.sql.Types.BOOLEAN, java.sql.Types.BOOLEAN };
+					java.sql.Types.VARCHAR, java.sql.Types.TIMESTAMP, java.sql.Types.BOOLEAN, java.sql.Types.BOOLEAN };
 			log.info(args.toString());
 			jdbcTemplate.update(sql, args, argTypes);
 			
 		} catch (BadSqlGrammarException e) {
-			log.error(e.getMessage(), e.getCause(), e.getStackTrace());
+			log.error("Error executing: ", e.getSql());
+			log.error("Exception message: ", e.getMessage(), e);
 		} catch (DataAccessException e) {
-			log.error(e.getMessage(), e.getCause(), e.getStackTrace());
+			log.error("Exception message: ", e.getMessage(), e);
 		}
 	}
+
 
 }

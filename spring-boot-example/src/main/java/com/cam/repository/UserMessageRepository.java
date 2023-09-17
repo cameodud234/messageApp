@@ -10,4 +10,6 @@ public interface UserMessageRepository {
 	
 	public List<Message> findSenderReceiverMessages(String senderId, String receiverId);
 	
+	public void addSenderReceiverMessage(Message message);
+	
 }

@@ -12,16 +12,21 @@ import com.cam.entity.Message;
 public class UserMessageRepositoryImpl implements UserMessageRepository {
 	
 	@Autowired
-	UserMessageDAOImpl userMessageDAO;
+	UserMessageDAOImpl userMessageDAOImpl;
 
 	@Override
 	public List<Message> findMessages(String userId) {
-		return userMessageDAO.findMessages(userId);
+		return userMessageDAOImpl.findMessages(userId);
 	}
 
 	@Override
 	public List<Message> findSenderReceiverMessages(String senderId, String receiverId) {
-		return userMessageDAO.findSenderReceiverMessages(senderId, receiverId);
+		return userMessageDAOImpl.findSenderReceiverMessages(senderId, receiverId);
+	}
+
+	@Override
+	public void addSenderReceiverMessage(Message message) {
+		userMessageDAOImpl.addSenderReceiverMessage(message);
 	}
 
 }

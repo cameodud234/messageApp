@@ -7,6 +7,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
@@ -25,15 +26,17 @@ public class UserMessageDAOImpl implements UserMessageDAO {
 	public List<Message> findMessages(String userId) {
 		try {
 			
-			String sql = "SELECT messages.*\n"
-					+ "FROM messages\n"
-					+ "INNER JOIN users ON messages.sender_id = ?";
+			String sql = "SELECT messages.* "
+					+ "FROM messages "
+					+ "INNER JOIN users ON messages.sender_id = ? "
+					+ "WHERE messages.active = true";
 			int searchFor = Integer.parseInt(userId);
 			
 			
-			
+		} catch (BadSqlGrammarException e) {
+			log.error(e.getMessage(), e.getCause(), e.getStackTrace());
 		} catch (DataAccessException e) {
-			log.info(e.getMessage() + ", " + e.getCause());
+			log.error(e.getMessage(), e.getCause(), e.getStackTrace());
 		}
 		
 		return null;
@@ -48,6 +51,7 @@ public class UserMessageDAOImpl implements UserMessageDAO {
 					+ "FROM messages "
 					+ "INNER JOIN users ON messages.sender_id = ? AND messages.receiver_id = ? "
 					+ "OR messages.sender_id = ? AND messages.receiver_id = ? "
+					+ "WHERE messages.active = true "
 					+ "ORDER BY messages.timestamp DESC;";
 			
 			Object[] args = { senderId, receiverId, receiverId, senderId };
@@ -70,10 +74,30 @@ public class UserMessageDAOImpl implements UserMessageDAO {
 			return messages;
 			
 			
+		} catch (BadSqlGrammarException e) {
+			log.error(e.getMessage(), e.getCause(), e.getStackTrace());
 		} catch (DataAccessException e) {
-			log.info(e.getMessage() + ", " +  e.getCause());
-		} 
+			log.error(e.getMessage(), e.getCause(), e.getStackTrace());
+		}
 		return null;
+	}
+
+	@Override
+	public void addSenderReceiverMessage(Message message) {
+		try {
+			String sql = "INSERT INTO messages (sender_id, receiver_id, content, timestamp, read, active) values (?, ?, ?, ?, ?, ?)";
+			Object[] args = { Integer.parseInt(message.getSenderId()), Integer.parseInt(message.getReceiverId()), 
+					message.getContent(), message.getTimestamp(), message.isRead(), message.isActive() };
+			int[] argTypes = { java.sql.Types.INTEGER, java.sql.Types.INTEGER, 
+					java.sql.Types.BLOB, java.sql.Types.TIMESTAMP_WITH_TIMEZONE, java.sql.Types.BOOLEAN, java.sql.Types.BOOLEAN };
+			log.info(args.toString());
+			jdbcTemplate.update(sql, args, argTypes);
+			
+		} catch (BadSqlGrammarException e) {
+			log.error(e.getMessage(), e.getCause(), e.getStackTrace());
+		} catch (DataAccessException e) {
+			log.error(e.getMessage(), e.getCause(), e.getStackTrace());
+		}
 	}
 
 }

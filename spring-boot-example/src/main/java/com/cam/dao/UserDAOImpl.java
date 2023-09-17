@@ -39,7 +39,7 @@ public class UserDAOImpl implements UserDAO {
 	        	String password = rs.getString("password");
 	        	Date dateOfBirth = rs.getDate("date_of_birth");
 	        	String role = rs.getString("role");
-	        	Timestamp createdAt = rs.getTimestamp("create_at");
+	        	Timestamp createdAt = rs.getTimestamp("created_at");
 	        	Timestamp updatedAt = rs.getTimestamp("updated_at");
 	        	boolean isActive = rs.getBoolean("active");
 	        	return new User(user_id, firstName, lastName, userName, email, password, dateOfBirth, role, createdAt, updatedAt, isActive);
@@ -49,9 +49,10 @@ public class UserDAOImpl implements UserDAO {
 	        return users.size() == 1 ? users.get(0) : null;
 			
 		} catch (BadSqlGrammarException e) {
-			log.error(e.getMessage(), e.getCause(), e.getStackTrace());
+			log.error("Error executing: ", e.getSql());
+			log.error("Exception message: ", e.getMessage(), e);
 		} catch (DataAccessException e) {
-			log.error(e.getMessage(), e.getCause(), e.getStackTrace());
+			log.error("Exception message: ", e.getMessage(), e);
 		}
 		return null;
 
@@ -70,7 +71,7 @@ public class UserDAOImpl implements UserDAO {
 	        	String password = rs.getString("password");
 	        	Date dateOfBirth = rs.getDate("date_of_birth");
 	        	String role = rs.getString("role");
-	        	Timestamp createdAt = rs.getTimestamp("create_at");
+	        	Timestamp createdAt = rs.getTimestamp("created_at");
 	        	Timestamp updatedAt = rs.getTimestamp("updated_at");
 	        	boolean isActive = rs.getBoolean("active");
 	        	return new User(user_id, firstName, lastName, userName, email, password, dateOfBirth, role, createdAt, updatedAt, isActive);
@@ -78,9 +79,10 @@ public class UserDAOImpl implements UserDAO {
 			log.info(users.size());
 			return users;
 		} catch (BadSqlGrammarException e) {
-			log.error(e.getMessage(), e.getCause(), e.getStackTrace());
+			log.error("Error executing: ", e.getSql());
+			log.error("Exception message: ", e.getMessage(), e);
 		} catch (DataAccessException e) {
-			log.error(e.getMessage(), e.getCause(), e.getStackTrace());
+			log.error("Exception message: ", e.getMessage(), e);
 		}
 		
 		return null;
@@ -99,9 +101,10 @@ public class UserDAOImpl implements UserDAO {
 			jdbcTemplate.update(sql, args, argTypes);
 			
 		} catch (BadSqlGrammarException e) {
-			log.error(e.getMessage(), e.getCause(), e.getStackTrace());
+			log.error("Error executing: ", e.getSql());
+			log.error("Exception message: ", e.getMessage(), e);
 		} catch (DataAccessException e) {
-			log.error(e.getMessage(), e.getCause(), e.getStackTrace());
+			log.error("Exception message: ", e.getMessage(), e);
 		}
 	}
 
@@ -123,9 +126,10 @@ public class UserDAOImpl implements UserDAO {
 						java.sql.Types.TIMESTAMP_WITH_TIMEZONE, java.sql.Types.TIMESTAMP_WITH_TIMEZONE, java.sql.Types.BOOLEAN};
 			jdbcTemplate.update(sql, args, argTypes);
 		} catch (BadSqlGrammarException e) {
-			log.error(e.getMessage(), e.getCause(), e.getStackTrace());
+			log.error("Error executing: ", e.getSql());
+			log.error("Exception message: ", e.getMessage(), e);
 		} catch (DataAccessException e) {
-			log.error(e.getMessage(), e.getCause(), e.getStackTrace());
+			log.error("Exception message: ", e.getMessage(), e);
 		}
 	}
 
@@ -139,9 +143,10 @@ public class UserDAOImpl implements UserDAO {
 				jdbcTemplate.update(sql, args, argTypes);
 				
 			} catch (BadSqlGrammarException e) {
-				log.error(e.getMessage(), e.getCause(), e.getStackTrace());
+				log.error("Error executing: ", e.getSql());
+				log.error("Exception message: ", e.getMessage(), e);
 			} catch (DataAccessException e) {
-				log.error(e.getMessage(), e.getCause(), e.getStackTrace());
+				log.error("Exception message: ", e.getMessage(), e);
 			}
 	}
 
@@ -151,9 +156,10 @@ public class UserDAOImpl implements UserDAO {
 			int count = jdbcTemplate.queryForObject(sql, Integer.class);
 			return count;
 		} catch (BadSqlGrammarException e) {
-			log.error(e.getMessage(), e.getCause(), e.getStackTrace());
+			log.error("Error executing: ", e.getSql());
+			log.error("Exception message: ", e.getMessage(), e);
 		} catch (DataAccessException e) {
-			log.error(e.getMessage(), e.getCause(), e.getStackTrace());
+			log.error("Exception message: ", e.getMessage(), e);
 		}
 		return Integer.MIN_VALUE;
 	}

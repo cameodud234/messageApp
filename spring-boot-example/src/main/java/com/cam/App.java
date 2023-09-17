@@ -19,7 +19,7 @@ public class App {
     		SpringApplication.run(App.class, args);
 			
 		} catch (Exception e) {
-			log.info(e.getMessage(), e.getCause());
+			log.error("Exception message: ", e.getMessage(), e);
 		}
     }
 

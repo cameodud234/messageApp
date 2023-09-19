@@ -15,7 +15,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.appService.getAPI_Message().subscribe(res => {
-      this.htmlContent = res
+      console.log(res);
     })
   }
 

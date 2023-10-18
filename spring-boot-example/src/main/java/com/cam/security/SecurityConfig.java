@@ -16,11 +16,12 @@ public class SecurityConfig {
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		http
-			.authorizeHttpRequests((requests) -> requests
-				.requestMatchers("/api", "/api/home").permitAll()
-				.anyRequest().authenticated()
-			)
+//		http
+//			.authorizeHttpRequests((requests) -> requests
+//				.requestMatchers("/api", "/api/home").permitAll()
+//				.anyRequest().authenticated()
+//				.and()
+//			)
 
 		return http.build();
 	}

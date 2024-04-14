@@ -3,7 +3,11 @@ package com.cam.security;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+
+import com.cam.entity.Role;
 
 import java.util.Date;
 import java.util.function.Function;
@@ -11,10 +15,15 @@ import java.util.function.Function;
 @Component
 public class JwtUtil {
 
+	@Value("${jwt.secret}")
     private String SECRET_KEY = "mySecretKey";  // Choose a strong secret key for production
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
+    }
+    
+    public String extractRole(String token) {
+    	return extractClaim(token, Claims::getSubject);
     }
 
     public Date extractExpiration(String token) {
@@ -34,13 +43,14 @@ public class JwtUtil {
         return extractExpiration(token).before(new Date());
     }
 
-    public String generateToken(String username) {
+    public String generateToken(String username, String role) {
         return createToken(username);
     }
 
     private String createToken(String subject) {
+    	int numberOfHours = 3;
         return Jwts.builder().setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10))  // 10 hours
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * numberOfHours))  // 10 hours
                 .signWith(SignatureAlgorithm.HS256, SECRET_KEY).compact();
     }
 
